@@ -11,7 +11,6 @@ if (!fs.existsSync(dbDir)) {
 
 export const db: DatabaseType = new Database(DB_PATH);
 
-// WAL mode allows concurrent reads while a write is in progress.
 db.pragma("journal_mode = WAL");
 db.pragma("foreign_keys = ON");
 

@@ -97,7 +97,6 @@ router.get("/:id/logs/stream", (req: Request, res: Response) => {
     return;
   }
 
-  // Must flush headers immediately or the browser won't treat this as SSE.
   res.setHeader("Content-Type", "text/event-stream");
   res.setHeader("Cache-Control", "no-cache");
   res.setHeader("Connection", "keep-alive");
@@ -131,7 +130,6 @@ router.get("/:id/logs/stream", (req: Request, res: Response) => {
     res.write(`data: ${payload}\n\n`);
   });
 
-  // Heartbeat keeps the connection alive through proxies and load balancers.
   const heartbeat = setInterval(() => {
     try {
       res.write(`: heartbeat\n\n`);

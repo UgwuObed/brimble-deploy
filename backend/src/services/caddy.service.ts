@@ -1,6 +1,5 @@
 const CADDY_ADMIN = process.env.CADDY_ADMIN_URL || "http://localhost:2019";
 
-// Caddy rejects non-loopback requests with no Origin header — send it explicitly.
 const ADMIN_HEADERS = {
   "Content-Type": "application/json",
   "Origin": CADDY_ADMIN,
@@ -11,8 +10,7 @@ export const CaddyService = {
     const res = await fetch(`${CADDY_ADMIN}/config/apps/http/servers/srv0/routes`, {
       headers: { "Origin": CADDY_ADMIN },
     });
-    // Caddy returns 200 + null body when the routes key doesn't exist yet.
-    // We must check the body, not just the HTTP status.
+   
     const routes = res.ok ? await res.json() : null;
     if (!Array.isArray(routes)) {
       const putRes = await fetch(`${CADDY_ADMIN}/config/apps/http/servers/srv0/routes`, {
