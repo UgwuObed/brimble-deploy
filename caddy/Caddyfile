@@ -1,0 +1,18 @@
+{
+	# Allow the backend container to call the Admin API.
+	# By default Caddy rejects non-loopback requests with no Origin header.
+	admin 0.0.0.0:2019 {
+		origins localhost:2019 caddy:2019
+	}
+
+	auto_https off
+
+	log {
+		level ERROR
+	}
+}
+
+# Main ingress server. Deployment routes are added here at runtime
+# via the Caddy Admin API (POST /config/apps/http/servers/srv0/routes).
+:80 {
+}
