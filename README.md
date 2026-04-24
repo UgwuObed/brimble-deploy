@@ -17,7 +17,7 @@ Deployed apps → http://localhost:8080/deploy/{id}
 1. **Submit** a Git URL or zip upload via the UI
 2. **Backend** clones/extracts the source, calls `railpack build` to produce a Docker image
 3. **Container** is started with `docker run`, mapped to a host port starting at 4000
-4. **Caddy** gets a new reverse-proxy route registered via its Admin API — no restart needed
+4. **Caddy** gets a new reverse-proxy route registered via its Admin API (no restart needed)
 5. **Logs** stream live to the UI over SSE while the build runs, and persist in SQLite for scroll-back after
 
 ---
@@ -29,7 +29,7 @@ Deployed apps → http://localhost:8080/deploy/{id}
 | Backend | TypeScript + Express | Preferred per spec; strong typing helps with the pipeline state machine |
 | Database | SQLite (better-sqlite3) | No extra service, WAL mode handles concurrent reads fine at this scale |
 | Frontend | Vite + TanStack Router + Query | Required per spec; Query handles polling and cache invalidation cleanly |
-| Log streaming | SSE | Logs are unidirectional — SSE is simpler than WebSocket, works through proxies, and the browser EventSource API handles reconnection automatically |
+| Log streaming | SSE | Logs are unidirectional  SSE is simpler than WebSocket, works through proxies, and the browser EventSource API handles reconnection automatically |
 | Ingress | Caddy 2 | Admin API lets the backend register routes at runtime without any reload |
 | Builds | Railpack | Detects language, produces a runnable image, no Dockerfile to maintain |
 
